@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.marakana.android.fibonacciservice" android:versionCode="1"
+	android:versionName="1.0">
+	<uses-sdk android:minSdkVersion="8" />
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+		<service android:name=".FibonacciService">
+			<intent-filter>
+				<action android:name="com.marakana.android.fibonaccicommon.IFibonacciService" /> <!-- <1> -->
+			</intent-filter>
+		</service>
+	</application>
+</manifest>
