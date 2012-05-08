@@ -1,4 +1,3 @@
-
 package com.marakana.android.fibonaccicommon;
 
 import android.os.Parcel;
@@ -6,50 +5,48 @@ import android.os.Parcelable;
 
 public class FibonacciRequest implements Parcelable {
 
-    public static final int RECURSIVE_JAVA_TYPE = 1;
+	public static enum Type {
+		RECURSIVE_JAVA, ITERATIVE_JAVA, RECURSIVE_NATIVE, ITERATIVE_NATIVE
+	}
 
-    public static final int ITERATIVE_JAVA_TYPE = 2;
+	private final long n;
 
-    public static final int RECURSIVE_NATIVE_TYPE = 3;
+	private final Type type;
 
-    public static final int ITERATIVE_NATIVE_TYPE = 4;
+	public FibonacciRequest(long n, Type type) {
+		this.n = n;
+		if (type == null) {
+			throw new NullPointerException("Type must not be null");
+		}
+		this.type = type;
+	}
 
-    private final long n;
+	public long getN() {
+		return n;
+	}
 
-    private final int type;
+	public Type getType() {
+		return type;
+	}
 
-    public FibonacciRequest(long n, int type) {
-        this.n = n;
-        if (type < RECURSIVE_JAVA_TYPE || type > ITERATIVE_NATIVE_TYPE) {
-            throw new IllegalArgumentException("Invalid type: " + type);
-        }
-        this.type = type;
-    }
+	public int describeContents() {
+		return 0;
+	}
 
-    public long getN() {
-        return n;
-    }
+	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeLong(this.n);
+		parcel.writeInt(this.type.ordinal());
+	}
 
-    public int getType() {
-        return type;
-    }
+	public static final Parcelable.Creator<FibonacciRequest> CREATOR = new Parcelable.Creator<FibonacciRequest>() {
+		public FibonacciRequest createFromParcel(Parcel in) {
+			long n = in.readLong();
+			Type type = Type.values()[in.readInt()];
+			return new FibonacciRequest(n, type);
+		}
 
-    public int describeContents() {
-        return 0;
-    }
-
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeLong(this.n);
-        parcel.writeInt(this.type);
-    }
-
-    public static final Parcelable.Creator<FibonacciRequest> CREATOR = new Parcelable.Creator<FibonacciRequest>() {
-        public FibonacciRequest createFromParcel(Parcel in) {
-            return new FibonacciRequest(in.readLong(), in.readInt());
-        }
-
-        public FibonacciRequest[] newArray(int size) {
-            return new FibonacciRequest[size];
-        }
-    };
+		public FibonacciRequest[] newArray(int size) {
+			return new FibonacciRequest[size];
+		}
+	};
 }
