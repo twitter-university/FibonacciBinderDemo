@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.marakana.android.fibonacciservice" android:versionCode="1"
-	android:versionName="1.0">
-	<uses-sdk android:minSdkVersion="8" />
-	<application android:icon="@drawable/icon" android:label="@string/app_name">
-		<service android:name=".FibonacciService">
-			<intent-filter>
-				<action android:name="com.marakana.android.fibonaccicommon.IFibonacciService" /> <!-- <1> -->
-			</intent-filter>
-		</service>
-	</application>
+    package="com.marakana.android.fibonacciservice"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <permission-group
+        android:name="com.marakana.android.fibonacciservice.FIBONACCI_PERMISSIONS"
+        android:label="@string/fibonacci_permissions_group_label" />
+
+    <permission
+        android:name="com.marakana.android.fibonacciservice.USE_FIBONACCI_SERVICE"
+        android:description="@string/use_fibonacci_service_permission_description"
+        android:label="@string/use_fibonacci_service_permission_label"
+        android:permissionGroup="com.marakana.android.fibonacciservice.FIBONACCI_PERMISSIONS"
+        android:protectionLevel="dangerous" />
+
+    <permission
+        android:name="com.marakana.android.fibonacciservice.USE_SLOW_FIBONACCI_SERVICE"
+        android:description="@string/use_slow_fibonacci_service_permission_description"
+        android:label="@string/use_slow_fibonacci_service_permission_label"
+        android:permissionGroup="com.marakana.android.fibonacciservice.FIBONACCI_PERMISSIONS"
+        android:protectionLevel="dangerous" />
+    
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <service
+            android:name=".FibonacciService"
+            android:permission="com.marakana.android.fibonacciservice.USE_FIBONACCI_SERVICE" >
+            <intent-filter>
+                <action android:name="com.marakana.android.fibonaccicommon.IFibonacciService" /> <!-- <1> -->
+            </intent-filter>
+        </service>
+    </application>
+
 </manifest>
