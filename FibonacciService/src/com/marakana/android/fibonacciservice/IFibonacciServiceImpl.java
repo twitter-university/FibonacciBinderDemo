@@ -33,7 +33,7 @@ public class IFibonacciServiceImpl extends IFibonacciService.Stub {
 
 	public long fibJR(long n) {
 		Log.d(TAG, String.format("fibJR(%d)", n));
-		return FibLib.fibJR(checkN(n));
+		return FibLib.fibJR(this.checkN(n));
 	}
 
 	public long fibNI(long n) {
@@ -43,7 +43,7 @@ public class IFibonacciServiceImpl extends IFibonacciService.Stub {
 
 	public long fibNR(long n) {
 		Log.d(TAG, String.format("fibNR(%d)", n));
-		return FibLib.fibNR(checkN(n));
+		return FibLib.fibNR(this.checkN(n));
 	}
 
 	public FibonacciResponse fib(FibonacciRequest request) {
